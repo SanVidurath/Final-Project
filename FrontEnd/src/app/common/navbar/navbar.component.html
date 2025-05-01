@@ -1,9 +1,10 @@
 <section>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-      <a class="navbar-brand"
-        ><img src="/assets/images/logo-design-1.jpeg" alt="logo"
-      /></a>
+      <a class="navbar-brand">
+        <img src="/assets/images/logo.jpeg" alt="logo" />
+      </a>
+
       <button
         class="navbar-toggler"
         type="button"
@@ -29,10 +30,10 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              routerLink="/items"
+              routerLink="/products"
               routerLinkActive="navbar-active"
               [routerLinkActiveOptions]="{ exact: true }"
-              >Items</a
+              >Products</a
             >
           </li>
           <li class="nav-item">
@@ -43,16 +44,6 @@
               [routerLinkActiveOptions]="{ exact: true }"
               >Cart</a
             >
-          </li>
-          <li class="nav-item">
-            <button
-              class="btn btn-outline-dark me-2"
-              routerLink="/login"
-              routerLinkActive="navbar-active"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              Login
-            </button>
           </li>
         </ul>
       </div>

@@ -1,1 +1,148 @@
-<p>home works!</p>
+<!-- Hero Section -->
+<section class="py-5 text-center bg-light">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Welcome to TheStore</h1>
+    <p class="lead">Discover the latest products at unbeatable prices!</p>
+    <a class="btn btn-primary btn-lg mt-3" (click)="goToComponent()"
+      >Shop Now</a
+    >
+  </div>
+</section>
+
+<!-- Carousel Section -->
+<section id="carouselCategories" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Shop by Categories</h2>
+    <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="/assets/images/electronics.jpg"
+            class="d-block w-100"
+            alt="Electronics"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class="text-danger fw-bold">Electronics</h5>
+            <p class="text-danger">Latest gadgets and technology.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img
+            src="/assets/images/jewelry.jpg"
+            class="d-block w-100"
+            alt="Jewelery"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class="text-danger fw-bold">Jewelery</h5>
+            <p class="text-danger">Elegant designs for every occasion.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img
+            src="/assets/images/men's clothing.jpg"
+            class="d-block w-100"
+            alt="Men's Clothing"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class="text-danger fw-bold">Men's Clothing</h5>
+            <p class="text-danger">Style and comfort for him.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img
+            src="/assets/images/women's clothing.jpg"
+            class="d-block w-100"
+            alt="Women's Clothing"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class="text-danger fw-bold">Women's Clothing</h5>
+            <p class="text-danger">Trendy and classy outfits.</p>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#categoryCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#categoryCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5">What Our Customers Say</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center">
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              class="rounded-circle mb-3"
+              width="80"
+              height="80"
+              alt="Customer 1"
+            />
+            <h5 class="card-title">Sarah Johnson</h5>
+            <p class="card-text">
+              "Amazing quality and super fast delivery! TheStore is now my go-to
+              store for everything."
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              class="rounded-circle mb-3"
+              width="80"
+              height="80"
+              alt="Customer 2"
+            />
+            <h5 class="card-title">Michael Smith</h5>
+            <p class="card-text">
+              "Great deals and top-notch products. I love the electronics
+              section — highly recommended!"
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center">
+            <img
+              src="https://randomuser.me/api/portraits/women/68.jpg"
+              class="rounded-circle mb-3"
+              width="80"
+              height="80"
+              alt="Customer 3"
+            />
+            <h5 class="card-title">Emma Wilson</h5>
+            <p class="card-text">
+              "Exceptional customer service and stylish fashion collections. I
+              always find what I need!"
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,10 +1,32 @@
+<section class="dropdown mx-0 my-4">
+  <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+    <select class="form-select w-50" [(ngModel)]="selectedOrder" name="order">
+      <option value="">ORDER BY</option>
+      <option *ngFor="let ord of order" [value]="ord">
+        {{ ord }}
+      </option>
+    </select>
+    <select class="form-select w-50" [(ngModel)]="selectedFilter" name="filter" (change)="onFilterChange()">
+      <option value="">FILTER BY</option>
+      <option *ngFor="let filter of filters" [value]="filter">
+        {{ filter }}
+      </option>
+    </select>
+  </div>
+</section>
+
 <div class="album py-5 bg-body-tertiary">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col" *ngFor="let product of listOfProducts">
-          <app-product-item [item]="product"></app-product-item>
-        </div>
+  <div class="container">
+    <div *ngIf="loading">
+      <div class="loader"></div>
+    </div>
+    <div
+      *ngIf="!loading"
+      class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+    >
+      <div class="col" *ngFor="let product of listOfProducts">
+        <app-product-item [item]="product"></app-product-item>
       </div>
     </div>
   </div>
-  
+</div>

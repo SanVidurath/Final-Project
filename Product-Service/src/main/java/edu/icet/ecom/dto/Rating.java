@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Rating {
-    private Double rating;
+    private Double rate;
     private Integer count;
 }

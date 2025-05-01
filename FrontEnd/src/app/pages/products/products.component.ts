@@ -1,27 +1,57 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { ProductItemComponent } from '../../common/product-item/product-item.component';
 import { HttpClient } from '@angular/common/http';
+import { Product } from '../../models/Product';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
-  imports: [ProductItemComponent, CommonModule],
+  imports: [ProductItemComponent, CommonModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
 export class ProductsComponent implements OnInit {
   constructor(private http: HttpClient) {}
+  filters = ['price', 'rating'];
+  order = ['ascending', 'descending'];
+  selectedFilter: string = '';
+  selectedOrder: string = '';
 
   ngOnInit(): void {
     this.loadProductInfo();
   }
 
+  loading: boolean = false;
   public listOfProducts: any = [];
 
   loadProductInfo() {
-    this.http
-      .get('http://localhost:8081/product/all')
-      .subscribe((data) => (this.listOfProducts = data));
+    this.http.get<Product[]>('http://localhost:8081/product/all').subscribe({
+      next: (data) => {
+        this.listOfProducts = data;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.loading = true;
+      },
+    });
+  }
+
+  onFilterChange(): void {
+    if (!this.selectedFilter || !this.selectedOrder) return;
     
+    const direction = this.selectedOrder === 'ascending' ? 1 : -1;
+
+    this.listOfProducts.sort((a: Product, b: Product) => {
+      switch (this.selectedFilter) {
+        case 'price':
+          return (a.price - b.price) * direction;
+        case 'rating':
+          return (a.rating.rate - b.rating.rate) * direction;
+
+        default:
+          return 0;
+      }
+    });
   }
 }

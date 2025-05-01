@@ -1,0 +1,16 @@
+.navbar {
+  background-color: bisque;
+}
+
+.navbar .navbar-brand img {
+  width: 50px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.navbar .navbar-active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
