@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { CartService } from '../../service/CartService';
+import { Product } from '../../models/Product';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -12,5 +15,15 @@ export class ProductItemComponent {
   @Input()
   public item:any;
 
-  isLoaded=false;
+  cartService = inject(CartService);
+
+
+  addToCart(item: Product) {
+    const added = this.cartService.addToCart(item);
+    if (added) {
+      Swal.fire('Success!','Added to cart!','success');
+    } else {
+      Swal.fire('Oops!','Item already in cart!', 'info');
+    }
+  }
 }

@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component,OnInit } from '@angular/core';
+import { Component,Inject,OnInit } from '@angular/core';
 import { ProductItemComponent } from '../../common/product-item/product-item.component';
-import { HttpClient } from '@angular/common/http';
 import { Product } from '../../models/Product';
 import { FormsModule } from '@angular/forms';
+import { ProductService } from '../../service/ProductService';
 
 @Component({
   selector: 'app-products',
@@ -12,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './products.component.css',
 })
 export class ProductsComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private productService:ProductService){}
+
   filters = ['price', 'rating'];
   order = ['ascending', 'descending'];
   selectedFilter: string = '';
@@ -26,12 +27,12 @@ export class ProductsComponent implements OnInit {
   public listOfProducts: any = [];
 
   loadProductInfo() {
-    this.http.get<Product[]>('http://localhost:8081/product/all').subscribe({
-      next: (data) => {
+    this.productService.getAll().subscribe({
+      next: (data:Product[]) => {
         this.listOfProducts = data;
         this.loading = false;
       },
-      error: (error) => {
+      error: () => {
         this.loading = true;
       },
     });
