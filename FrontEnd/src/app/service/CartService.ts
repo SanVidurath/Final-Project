@@ -1,11 +1,16 @@
 import { Injectable } from "@angular/core";
 import { Product } from "../models/Product";
+import { Customer } from "../models/Customer";
+import { HttpClient } from "@angular/common/http";
+import { env } from "../env/env.test";
 
 @Injectable({
     providedIn: 'root',
 })
 export class CartService{
+    constructor(private http:HttpClient){}
     private cart:Product[]=[];
+    private baseUrl = `${env.ORDER_SERVICE_URL}`
 
     addToCart(product: Product):boolean{
         const exists = this.cart.some((p)=>p.id===product.id);
@@ -29,4 +34,10 @@ export class CartService{
     getCart():Product[]{
         return this.cart;
     }
+
+    addCustomer(customer: Customer) {
+    return this.http.post(`${this.baseUrl}/cart/customer`, customer, {
+      responseType: 'text',
+    });
+  }
 }

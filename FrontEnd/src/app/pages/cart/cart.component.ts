@@ -5,22 +5,34 @@ import { Product } from '../../models/Product';
 import { CartItem } from '../../models/CartItem';
 import { CartService } from '../../service/CartService';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import {
+  MdbModalModule,
+  MdbModalRef,
+  MdbModalService,
+} from 'mdb-angular-ui-kit/modal';
+import { AddCustomerComponent } from '../add-customer/add-customer.component';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MdbModalModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit {
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private modalService: MdbModalService
+  ) {}
   storedProducts: Product[] = [];
   products: Product[] = [];
   cartItems: CartItem[] = [];
   totalPrice: number = 0;
+  modalRefCustomer: MdbModalRef<AddCustomerComponent> | null = null;
 
   ngOnInit(): void {
-    this.storedProducts=JSON.parse(localStorage.getItem('products')||'[]');
+    this.storedProducts = JSON.parse(localStorage.getItem('products') || '[]');
     this.products = this.cartService.getCart();
     this.products.forEach((product) => {
       const cartItem: CartItem = {
@@ -42,7 +54,7 @@ export class CartComponent implements OnInit {
     });
   }
 
-  syncItems():void{
+  syncItems(): void {
     localStorage.setItem('products', JSON.stringify(this.products));
   }
 
@@ -63,10 +75,43 @@ export class CartComponent implements OnInit {
     );
   }
 
-  removeItem(index: number):void{
-    this.cartItems.splice(index,1);
+  removeItem(index: number): void {
+    this.cartItems.splice(index, 1);
     this.cartService.removeFromCart(index);
     this.syncItems();
     this.calculateTotalPrice();
+  }
+
+  // openModal() {
+  //   if (this.totalPrice === 0) {
+  //     Swal.fire('Error', 'Cart is empty', 'error');
+  //     return;
+  //   }
+  //   this.modalRef = this.modalService.open(ModalComponent, {
+  //     modalClass: 'modal-dialog-centered',
+  //     data: {
+  //       totalPrice: this.totalPrice,
+  //       cartItems: this.cartItems,
+  //     },
+
+  //     backdrop: true,
+  //     keyboard: false,
+  //     ignoreBackdropClick: true,
+  //   });
+  // }
+
+  openCustomerModal() {
+    this.router.navigate(['/cart/customer']).then(() => {
+      this.modalRefCustomer = this.modalService.open(AddCustomerComponent, {
+        modalClass: 'modal-dialog-centered',
+        backdrop: true,
+        keyboard: false,
+        ignoreBackdropClick: true,
+      });
+
+      this.modalRefCustomer.onClose.subscribe(() => {
+        this.router.navigate(['/cart']);
+      });
+    });
   }
 }

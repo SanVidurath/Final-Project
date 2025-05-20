@@ -1,4 +1,4 @@
-<section class="cart" id="cart">
+<section class="cart mb-5" id="cart">
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-12">
@@ -27,7 +27,7 @@
                     />
                   </td>
                   <td>{{ item.title }}</td>
-                  <td>Rs.{{ item.unitPrice.toFixed(2) }}</td>
+                  <td>$ {{ item.unitPrice.toFixed(2) }}</td>
                   <td>
                     <input
                       type="number"
@@ -37,7 +37,7 @@
                       (input)="updateFinalPrice(item)"
                     />
                   </td>
-                  <td>Rs.{{ item.finalPrice.toFixed(2) }}</td>
+                  <td>$ {{ item.finalPrice.toFixed(2) }}</td>
                   <td>
                     <button
                       class="btn btn-danger delete-item"
@@ -52,21 +52,23 @@
           </table>
         </div>
         <!-- <div class="text-center">
-            <button 
-            class="btn btn-primary rounded-2 mt-3" 
+          <button
+            class="btn btn-primary rounded-2 mt-3"
             id="checkoutBtn"
-            (click)="openModal()">
-              Proceed to Checkout
-            </button>
-          </div>
-          <div class="text-center">
-            <button 
-            class="btn btn-primary rounded-2 mt-3" 
+            (click)="openModal()"
+          >
+            Proceed to Checkout
+          </button>
+        </div> -->
+        <div class="text-center">
+          <button
+            class="btn btn-primary rounded-2 mt-3"
             id="registerCustomerBtn"
-            (click)="openCustomerModal()">
-              Register New Customer
-            </button>
-          </div> -->
+            (click)="openCustomerModal()"
+          >
+            Register New Customer
+          </button>
+        </div>
       </div>
     </div>
   </div>

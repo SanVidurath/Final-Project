@@ -12,7 +12,7 @@ export class WebSocketService {
   connect() {
     this.client = new Client({
       brokerURL: undefined,
-      webSocketFactory: () => new SockJS('http://localhost:8080/greetings-ws'),
+      webSocketFactory: () => new SockJS('http://localhost:8081/greetings-ws'),
       reconnectDelay: 5000,
     });
 
