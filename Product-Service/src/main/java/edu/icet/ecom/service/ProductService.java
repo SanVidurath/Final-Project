@@ -1,5 +1,6 @@
 package edu.icet.ecom.service;
 
+import edu.icet.ecom.annotation.LogExecutionTime;
 import edu.icet.ecom.dto.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class ProductService {
 
     private final RestTemplate restTemplate;
 
+    @LogExecutionTime
     public List<Product> getProducts() {
         Product[] response = restTemplate.getForObject("https://fakestoreapi.com/products/", Product[].class);
 
@@ -25,6 +27,7 @@ public class ProductService {
     }
 
     @Scheduled(cron = "*/10 * * * * *")
+    @LogExecutionTime
     public void sendGreetings(){
         log.info("Happy Seasonal Greetings");
     }
