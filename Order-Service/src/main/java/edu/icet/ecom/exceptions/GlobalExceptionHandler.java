@@ -1,4 +1,4 @@
-package edu.icet.ecom.util;
+package edu.icet.ecom.exceptions;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -54,5 +54,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .header("Content-Type", "application/json")
                 .body(errors);
+    }
+
+    @ExceptionHandler(NoCustomersFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNoCustomersFound(NoCustomersFoundException ex){
+        HashMap<String, String> response = new HashMap<>();
+        response.put(ERROR, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }
