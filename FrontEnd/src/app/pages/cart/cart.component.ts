@@ -12,10 +12,22 @@ import {
   MdbModalService,
 } from 'mdb-angular-ui-kit/modal';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { OrderService } from '../../service/OrderService';
+import { OrderDetail } from '../../models/OrderDetail';
+import { Order } from '../../models/Order';
+import { OrderRequest } from '../../models/OrderRequest';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, FormsModule, MdbModalModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MdbModalModule,
+    ButtonModule,
+    InputTextModule,
+  ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
@@ -23,13 +35,19 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private router: Router,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private orderService: OrderService
   ) {}
   storedProducts: Product[] = [];
   products: Product[] = [];
   cartItems: CartItem[] = [];
   totalPrice: number = 0;
   modalRefCustomer: MdbModalRef<AddCustomerComponent> | null = null;
+  visible: boolean = false;
+
+  showDialog(): void {
+    this.visible = true;
+  }
 
   ngOnInit(): void {
     this.storedProducts = JSON.parse(localStorage.getItem('products') || '[]');
@@ -82,23 +100,47 @@ export class CartComponent implements OnInit {
     this.calculateTotalPrice();
   }
 
-  // openModal() {
-  //   if (this.totalPrice === 0) {
-  //     Swal.fire('Error', 'Cart is empty', 'error');
-  //     return;
-  //   }
-  //   this.modalRef = this.modalService.open(ModalComponent, {
-  //     modalClass: 'modal-dialog-centered',
-  //     data: {
-  //       totalPrice: this.totalPrice,
-  //       cartItems: this.cartItems,
-  //     },
+  checkout() {
+    console.log(this.cartItems);
+    const orderDetails:OrderDetail[] = this.cartItems.map(item=>
+      new OrderDetail(
+        item.id,
+        item.category,
+        item.unitPrice,
+        item.quantity
+    ));
 
-  //     backdrop: true,
-  //     keyboard: false,
-  //     ignoreBackdropClick: true,
-  //   });
-  // }
+    const total = orderDetails.reduce((sum, detail)=>sum + detail.unitPrice * detail.quantityPurchased, 0);
+
+
+    const order = new Order(
+      null,
+      new Date().toISOString().split('T')[0],
+      1,
+      "Rohan",
+      1,
+      "Rahul",
+      total,
+      'Cash',
+      orderDetails
+    )
+
+    const orderRequest = new OrderRequest(order, orderDetails);
+
+    this.orderService.placeOrder(orderRequest).subscribe({
+      next: (response) => {
+        Swal.fire({
+          title: 'Order Placed',
+          text: 'Your order has been placed successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        })
+      },
+      error: (error) => {
+        Swal.fire('Error', 'Failed to place order', 'error');
+      },
+    })
+  }
 
   openCustomerModal() {
     this.router.navigate(['/cart/customer']).then(() => {
