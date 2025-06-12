@@ -26,7 +26,7 @@ public class ProductService {
         return Arrays.stream(response).toList();
     }
 
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "*/20 * * * * *")
     @LogExecutionTime
     public void sendGreetings(){
         log.info("Happy Seasonal Greetings");

@@ -13,7 +13,7 @@ public class GreetingController {
 
     private final SimpMessagingTemplate messagingTemplate;
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 20000)
     public void sendGreeting() {
         messagingTemplate.convertAndSend("/topic/greetings", "Happy Seasonal Greetings");
     }
